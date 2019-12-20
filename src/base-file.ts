@@ -1,14 +1,14 @@
 import { File } from './file';
 import { existsSync, readFileSync, writeFileSync, unlinkSync } from 'fs';
-import { FileWriter } from './file-writer';
+import { FileWriter } from './file-writer'
 
-export abstract class BaseFile<T> implements File<T> {
+export abstract class BaseFile<T, FW extends FileWriter<T, File<T>>> implements File<T> {
   public fileText: string;
-  public fileWriter: FileWriter<T, File<T>>;
+  public fileWriter: FW
 
   public constructor(
     public readonly filePath: string,
-    fileWriter: new () => FileWriter<T, File<T>>
+    fileWriter: new () => FW
   ) {
     this.fileText = this.readAllText();
     this.fileWriter = new fileWriter();
@@ -36,6 +36,4 @@ export abstract class BaseFile<T> implements File<T> {
   public delete() {
     unlinkSync(this.filePath);
   }
-
-  abstract get length(): number;
 }

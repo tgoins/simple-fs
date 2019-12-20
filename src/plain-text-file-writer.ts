@@ -4,7 +4,7 @@ import { writeFileSync } from 'fs';
 
 type File = PlainTextFile
 
-export class TextFileWriter implements FileWriter<string, File> {
+export class PlainTextFileWriter implements FileWriter<string, File> {
   public write(file: File, ...data: string[]) {
     file.fileText = data.join('');
     writeFileSync(file.filePath, file.fileText);

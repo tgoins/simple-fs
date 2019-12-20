@@ -8,7 +8,6 @@ export interface File<T> {
   readAllLines(): string[];
   delete(): void;
   test(regex: RegExp): boolean;
-  length: number;
 }
 
 export interface IndexedFile<T> extends File<T> {
@@ -16,6 +15,7 @@ export interface IndexedFile<T> extends File<T> {
   parse(): ReadonlyArray<T>;
   write(...data: T[]): this;
   append(...data: T[]): this;
+  length: number;
 }
 
 export interface KeyedFile<K extends number | string, V>
@@ -24,4 +24,5 @@ export interface KeyedFile<K extends number | string, V>
   parse(): Readonly<Record<K, V>>;
   write(data: Record<K, V>): this;
   append(data: Record<K, V>): this;
+  length: number;
 }

@@ -4,7 +4,7 @@ import { RecordDecorator } from './record-decorator';
 import { KeyedFile } from './file';
 
 export class JsonDictionaryFile<K extends number | string, T>
-  extends BaseFile<Record<K, T>>
+  extends BaseFile<Record<K, T>, JsonDictionaryFileWriter<K, T>>
   implements KeyedFile<K, T> {
   private results = new RecordDecorator({} as Record<K, T>);
 

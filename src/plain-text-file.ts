@@ -1,13 +1,13 @@
 import { BaseFile } from './base-file';
-import { TextFileWriter } from './text-file-writer';
+import { PlainTextFileWriter } from './plain-text-file-writer';
 import { IndexedFile } from './file';
 
-export class PlainTextFile extends BaseFile<string>
+export class PlainTextFile extends BaseFile<string, PlainTextFileWriter>
   implements IndexedFile<string> {
   public fileText: string;
 
   public constructor(public readonly filePath: string) {
-    super(filePath, TextFileWriter);
+    super(filePath, PlainTextFileWriter);
     this.fileText = this.readAllText();
   }
 
