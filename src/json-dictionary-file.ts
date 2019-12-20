@@ -1,6 +1,6 @@
 import { BaseFile } from './base-file';
 import { JsonDictionaryFileWriter } from './json-dictionary-file-writer';
-import { RecordDecorator } from '../sass-tool/record-decorator';
+import { RecordDecorator } from './record-decorator';
 import { KeyedFile } from './file';
 
 export class JsonDictionaryFile<K extends number | string, T>

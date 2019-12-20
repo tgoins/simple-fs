@@ -1,7 +1,7 @@
 import { FileWriter } from './file-writer';
 import { writeFileSync } from 'fs';
 import { JsonDictionaryFile } from './json-dictionary-file';
-import { RecordDecorator } from '../sass-tool/record-decorator';
+import { RecordDecorator } from './record-decorator';
 
 type File<K extends number | string, V> = JsonDictionaryFile<K, V>;
 type T<K extends number | string, V> = Record<K, V>;
