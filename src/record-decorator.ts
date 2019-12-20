@@ -1,4 +1,5 @@
-import { FileManager, JsonDictionaryFile } from ".";
+import { FileManager } from "./file-manager";
+import { JsonDictionaryFile } from "./json-dictionary-file";
 
 export class RecordDecorator<K extends string | number, V> {
   constructor(private _record: Record<K, V>) { }
