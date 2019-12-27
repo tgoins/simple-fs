@@ -28,13 +28,17 @@ export class RecordDecorator<K extends string | number, V> {
     return this;
   }
 
+  public forEach(f: (k: K, v: V, i: number) => void) {
+    Object.keys(this._record).forEach(((k, i) => f(k as unknown as K, this._record[k as unknown as K], i)))
+  }
+
   public get record() {
     const r: Readonly<Record<K, V>> = this._record;
     return r;
   }
 
   public get length() {
-    return Array.of(this._record).length;
+    return Object.keys(this._record).length;
   }
 
   public static fromFile<K extends number | string, V>(
