@@ -10,7 +10,11 @@ export class JsonFile<T> extends BaseFile<T, JsonFileWriter<T>> {
   }
 
   public parse() {
-    this.result = JSON.parse(this.fileText || JSON.stringify({})) as T;
+    if (!this.fileText) {
+      return undefined
+    }
+
+    this.result = JSON.parse(this.fileText) as T;
     return this.result as Readonly<T>;
   }
 

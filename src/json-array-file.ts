@@ -11,7 +11,11 @@ export class JsonArrayFile<T> extends BaseFile<T, JsonArrayFileWriter<T>> implem
   }
 
   public parse() {
-    this.results = JSON.parse(this.fileText || JSON.stringify([])) as T[];
+    if (!this.fileText) {
+      return undefined
+    }
+
+    this.results = JSON.parse(this.fileText) as T[];
     return this.results as ReadonlyArray<T>;
   }
 

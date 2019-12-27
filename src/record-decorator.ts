@@ -39,11 +39,15 @@ export class RecordDecorator<K extends string | number, V> {
 
   public static fromFile<K extends number | string, V>(
     file: string
-  ): RecordDecorator<K, V> {
-    const result: Record<K, V> = FileManager.open<JsonDictionaryFile<K, V>>(
+  ): RecordDecorator<K, V> | undefined {
+    const result: Record<K, V> | undefined = FileManager.open<JsonDictionaryFile<K, V>>(
       JsonDictionaryFile,
       file
     ).parse();
+
+    if (!result) {
+      return undefined
+    }
 
     return new RecordDecorator<K, V>(result);
   }

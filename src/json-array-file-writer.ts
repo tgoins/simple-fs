@@ -11,6 +11,6 @@ export class JsonArrayFileWriter<T> implements FileWriter<T, File<T>> {
   }
 
   public append(file: File<T>, ...data: T[]) {
-    this.write(file, ...file.parse(), ...data);
+    this.write(file, ...(file.parse() || []), ...data);
   }
 }

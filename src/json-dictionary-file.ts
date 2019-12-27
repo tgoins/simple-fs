@@ -15,7 +15,12 @@ export class JsonDictionaryFile<K extends number | string, T>
 
   public parse() {
     this.results.clear();
-    this.results.append(JSON.parse(this.fileText || JSON.stringify({})));
+
+    if (!this.fileText) {
+      return undefined
+    }
+
+    this.results.append(JSON.parse(this.fileText));
     return this.results.record;
   }
 

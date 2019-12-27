@@ -14,7 +14,7 @@ export class JsonDictionaryFileWriter<K extends number | string, V>
   }
 
   public append(file: File<K, V>, data: T<K, V>) {
-    const d = new RecordDecorator(Object(file.parse()) as T<K, V>);
+    const d = new RecordDecorator(Object(file.parse() || {}) as T<K, V>);
     this.write(file, d.append(data).record);
   }
 }

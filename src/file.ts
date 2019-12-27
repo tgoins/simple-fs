@@ -12,7 +12,7 @@ export interface File<T> {
 
 export interface IndexedFile<T> extends File<T> {
   replace(index: number, value: T): this;
-  parse(): ReadonlyArray<T>;
+  parse(): ReadonlyArray<T> | undefined;
   write(...data: T[]): this;
   append(...data: T[]): this;
   length: number;
@@ -21,7 +21,7 @@ export interface IndexedFile<T> extends File<T> {
 export interface KeyedFile<K extends number | string, V>
   extends File<Record<K, V>> {
   replace(index: K, value: V): this;
-  parse(): Readonly<Record<K, V>>;
+  parse(): Readonly<Record<K, V>> | undefined;
   write(data: Record<K, V>): this;
   append(data: Record<K, V>): this;
   length: number;
