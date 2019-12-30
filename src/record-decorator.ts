@@ -2,18 +2,18 @@ import { FileManager } from "./file-manager";
 import { JsonDictionaryFile } from "./json-dictionary-file";
 
 export class RecordDecorator<K extends string | number, V> {
-  constructor(private _record: Record<K, V>) { }
+  constructor(private _record: Record<K, V> = ({}) as Record<K, V>) { }
 
   public set(key: K, value: V) {
     this._record[key] = value;
   }
 
-  public get(key: K) {
-    return this._record[key];
+  public get(key: K): V | undefined {
+    return Object(this._record)[key]
   }
 
   public has(key: K) {
-    return !!this.get(key);
+    return Object.keys(this._record).includes(key.toString())
   }
 
   public append(...records: Record<K, V>[]) {
@@ -30,6 +30,16 @@ export class RecordDecorator<K extends string | number, V> {
 
   public forEach(f: (k: K, v: V, i: number) => void) {
     Object.keys(this._record).forEach(((k, i) => f(k as unknown as K, this._record[k as unknown as K], i)))
+  }
+
+  public toMap() {
+    const map = new Map<K, V>()
+
+    for (const key of Object.keys(this._record)) {
+      map.set(key as K, this.get(key as K)!)
+    }
+
+    return map
   }
 
   public get record() {
@@ -54,5 +64,13 @@ export class RecordDecorator<K extends string | number, V> {
     }
 
     return new RecordDecorator<K, V>(result);
+  }
+
+  public static fromMap<K extends number | string, V>(map: Map<K, V>) {
+    const record = new RecordDecorator<K, V>()
+
+    map.forEach((v, k) => record.set(k, v))
+
+    return record
   }
 }
