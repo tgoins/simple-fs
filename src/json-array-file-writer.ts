@@ -6,7 +6,7 @@ type File<T> = JsonArrayFile<T>;
 
 export class JsonArrayFileWriter<T> implements FileWriter<T, File<T>> {
   public write(file: File<T>, ...data: T[]) {
-    file.fileText = JSON.stringify(data);
+    file.fileText = JSON.stringify(data, null, 2);
     writeFileSync(file.filePath, file.fileText);
   }
 

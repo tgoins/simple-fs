@@ -9,7 +9,7 @@ type T<K extends number | string, V> = Record<K, V>;
 export class JsonDictionaryFileWriter<K extends number | string, V>
   implements FileWriter<T<K, V>, File<K, V>> {
   public write(file: File<K, V>, data: T<K, V>) {
-    file.fileText = JSON.stringify(data);
+    file.fileText = JSON.stringify(data, null, 2);
     writeFileSync(file.filePath, file.fileText);
   }
 
