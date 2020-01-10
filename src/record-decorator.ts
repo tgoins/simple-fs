@@ -1,11 +1,11 @@
-import { FileManager } from "./file-manager";
-import { JsonDictionaryFile } from "./json-dictionary-file";
+import { FileManager } from './file-manager'
+import { JsonDictionaryFile } from './json-dictionary-file'
 
 export class RecordDecorator<K extends string | number, V> {
-  constructor(private _record: Record<K, V> = ({}) as Record<K, V>) { }
+  constructor(private _record: Record<K, V> = {} as Record<K, V>) {}
 
   public set(key: K, value: V) {
-    this._record[key] = value;
+    this._record[key] = value
   }
 
   public get(key: K): V | undefined {
@@ -18,18 +18,20 @@ export class RecordDecorator<K extends string | number, V> {
 
   public append(...records: Record<K, V>[]) {
     records.forEach(record => {
-      this._record = { ...Object(this._record), ...Object(record) };
-    });
-    return this;
+      this._record = { ...Object(this._record), ...Object(record) }
+    })
+    return this
   }
 
   public clear() {
-    this._record = {} as Record<K, V>;
-    return this;
+    this._record = {} as Record<K, V>
+    return this
   }
 
   public forEach(f: (k: K, v: V, i: number) => void) {
-    Object.keys(this._record).forEach(((k, i) => f(k as unknown as K, this._record[k as unknown as K], i)))
+    Object.keys(this._record).forEach((k, i) =>
+      f((k as unknown) as K, this._record[(k as unknown) as K], i)
+    )
   }
 
   public toMap() {
@@ -43,27 +45,26 @@ export class RecordDecorator<K extends string | number, V> {
   }
 
   public get record() {
-    const r: Readonly<Record<K, V>> = this._record;
-    return r;
+    const r: Readonly<Record<K, V>> = this._record
+    return r
   }
 
   public get length() {
-    return Object.keys(this._record).length;
+    return Object.keys(this._record).length
   }
 
   public static fromFile<K extends number | string, V>(
     file: string
   ): RecordDecorator<K, V> | undefined {
-    const result: Record<K, V> | undefined = FileManager.open<JsonDictionaryFile<K, V>>(
-      JsonDictionaryFile,
-      file
-    ).parse();
+    const result: Record<K, V> | undefined = FileManager.open<
+      JsonDictionaryFile<K, V>
+    >(JsonDictionaryFile, file).parse()
 
     if (!result) {
       return undefined
     }
 
-    return new RecordDecorator<K, V>(result);
+    return new RecordDecorator<K, V>(result)
   }
 
   public static fromMap<K extends number | string, V>(map: Map<K, V>) {

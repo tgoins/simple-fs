@@ -1,45 +1,45 @@
-import { BaseFile } from './base-file';
-import { JsonDictionaryFileWriter } from './json-dictionary-file-writer';
-import { RecordDecorator } from './record-decorator';
-import { KeyedFile } from './file';
+import { BaseFile } from './base-file'
+import { JsonDictionaryFileWriter } from './json-dictionary-file-writer'
+import { RecordDecorator } from './record-decorator'
+import { KeyedFile } from './file'
 
 export class JsonDictionaryFile<K extends number | string, T>
   extends BaseFile<Record<K, T>, JsonDictionaryFileWriter<K, T>>
   implements KeyedFile<K, T> {
-  private results = new RecordDecorator({} as Record<K, T>);
+  private results = new RecordDecorator({} as Record<K, T>)
 
   public constructor(filePath: string) {
-    super(filePath, JsonDictionaryFileWriter);
-    this.parse();
+    super(filePath, JsonDictionaryFileWriter)
+    this.parse()
   }
 
   public parse() {
-    this.results.clear();
+    this.results.clear()
 
     if (!this.fileText) {
       return undefined
     }
 
-    this.results.append(JSON.parse(this.fileText));
-    return this.results.record;
+    this.results.append(JSON.parse(this.fileText))
+    return this.results.record
   }
 
   public replace(key: K, value: T) {
-    this.results.set(key, value);
-    return this;
+    this.results.set(key, value)
+    return this
   }
 
   public get length() {
-    return this.results.length;
+    return this.results.length
   }
 
   write(data: Record<K, T>) {
-    this.fileWriter.write(this, data);
-    return this;
+    this.fileWriter.write(this, data)
+    return this
   }
 
   append(data: Record<K, T>) {
-    this.fileWriter.append(this, data);
-    return this;
+    this.fileWriter.append(this, data)
+    return this
   }
 }
