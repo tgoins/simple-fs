@@ -17,7 +17,7 @@ export class JsonArrayFile<T> extends BaseFile<T, JsonArrayFileWriter<T>>
     }
 
     this.results = JSON.parse(this.fileText) as T[]
-    return this.results as ReadonlyArray<T>
+    return this.results
   }
 
   public replace(index: number, value: T) {

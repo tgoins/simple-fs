@@ -43,7 +43,7 @@ export class PlainTextFile extends BaseFile<string, PlainTextFileWriter>
   }
 
   public parse() {
-    return this.readAllLines() as ReadonlyArray<string>
+    return this.readAllLines()
   }
 
   write(...data: string[]) {

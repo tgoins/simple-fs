@@ -15,7 +15,7 @@ export class JsonFile<T> extends BaseFile<T, JsonFileWriter<T>> {
     }
 
     this.result = JSON.parse(this.fileText) as T
-    return this.result as Readonly<T>
+    return this.result
   }
 
   write(data: T) {
